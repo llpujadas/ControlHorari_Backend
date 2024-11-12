@@ -1,14 +1,21 @@
 package com.controlHorari.Dtos;
 
+import com.controlHorari.Enum.CheckinType;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class CheckinDto {
-    private String token;
+    private Long userId;
 
-    private long expiresIn;
+    private CheckinType checkinType;
 
-    // Getters and setters...
+    private String latitud;
+
+    private String longitud;
+
+    private String deviceInfo;
 }
