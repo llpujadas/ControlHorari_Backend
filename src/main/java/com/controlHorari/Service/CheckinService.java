@@ -40,7 +40,7 @@ public class CheckinService {
 
         LocalDateTime now = LocalDateTime.now();
         String formattedString = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        List<Checkin> fitxadesAvui = getFitxadesByData(formattedString + "00:00");
+        List<Checkin> fitxadesAvui = getFitxadesByData(formattedString);
         CheckinType checkinType = CheckinType.SORTIDA;
 
         if (fitxadesAvui.isEmpty()){
@@ -61,8 +61,9 @@ public class CheckinService {
     }
 
     public List<Checkin> getFitxadesByData(String dataSeleccionada) {
+        String dataToFilter = dataSeleccionada + "00:00";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(dataSeleccionada, formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(dataToFilter, formatter);
         return repo.getCheckinByTimestamp(dateTime);
     }
 }
