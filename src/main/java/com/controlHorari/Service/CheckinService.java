@@ -7,6 +7,8 @@ import com.controlHorari.Enum.CheckinType;
 import com.controlHorari.Repository.CheckinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -32,12 +34,7 @@ public class CheckinService {
     }
 
     public Checkin createCheckin(CheckinDto checkinDto) {
-        Optional<User> opUser = userService.getUserByUserId(checkinDto.getUserId());
-
-        if (opUser.isEmpty()){
-            throw new RuntimeException("ERROR: USUARI NO TROBAT");
-        }
-
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         LocalDateTime now = LocalDateTime.now();
         String formattedString = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         List<Checkin> fitxadesAvui = getFitxadesByData(formattedString);
@@ -52,7 +49,7 @@ public class CheckinService {
         }
 
         Checkin checkin = new Checkin();
-        checkin.setUser(opUser.get());
+        checkin.setUser(user);
         checkin.setLatitud(checkinDto.getLatitud());
         checkin.setLongitud(checkinDto.getLongitud());
         checkin.setDeviceInfo(checkinDto.getDeviceInfo());
@@ -61,9 +58,10 @@ public class CheckinService {
     }
 
     public List<Checkin> getFitxadesByData(String dataSeleccionada) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String dataToFilter = dataSeleccionada + "00:00";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(dataToFilter, formatter);
-        return repo.getCheckinByTimestamp(dateTime);
+        return repo.getCheckinByTimestampAndUserId(dateTime, user.getId());
     }
 }

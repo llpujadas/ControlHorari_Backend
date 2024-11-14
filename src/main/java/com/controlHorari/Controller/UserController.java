@@ -22,16 +22,16 @@ public class UserController {
     }
 
     // Create a new user
-    @PostMapping("/create")
+    @PostMapping("/upsert")
     public ResponseEntity<User> saveUser(@RequestBody User user) {
-        User savedUser = userService.saveUser(user);
+        User savedUser = userService.saveOrUpdateUser(user);
         return ResponseEntity.ok(savedUser);
     }
 
     // Get all users
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.fetchAllUsers();
+        List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 

@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface CheckinRepository extends JpaRepository<Checkin, Long> {
 
-    @Query(value = "SELECT * FROM checkins WHERE DATE(timestamp) = :data", nativeQuery = true)
-    List<Checkin> getCheckinByTimestamp(LocalDateTime data);
+    @Query(value = "SELECT * FROM checkins WHERE DATE(timestamp) = :data AND user_id = :userId", nativeQuery = true)
+    List<Checkin> getCheckinByTimestampAndUserId(LocalDateTime data, int userId);
 }
