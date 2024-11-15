@@ -33,6 +33,7 @@ public class CheckinService {
         this.repo = checkinRepository;
     }
 
+    // CREATE METHODS ==================================================================================================
     public Checkin createCheckin(CheckinDto checkinDto) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         LocalDateTime now = LocalDateTime.now();
@@ -57,6 +58,7 @@ public class CheckinService {
         return repo.save(checkin);
     }
 
+    // READ METHODS ====================================================================================================
     public List<Checkin> getFitxadesByData(String dataSeleccionada) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String dataToFilter = dataSeleccionada + "00:00";

@@ -22,9 +22,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    // CREATE METHODS ==================================================================================================
     public User saveOrUpdateUser(User user) {
         Optional<User> existingUserOpt = userRepository.findByEmail(user.getEmail());
-
         try {
             if (existingUserOpt.isPresent()) {
                 User existingUser = existingUserOpt.get();
@@ -39,7 +39,7 @@ public class UserService {
         }
     }
 
-
+    // READ METHODS ====================================================================================================
     public List<User> getAllUsers() {
         try {
             return userRepository.findAll();
@@ -48,22 +48,20 @@ public class UserService {
         }
     }
 
-
     public Optional<User> getUserByUserId(Long id) {
         try {
             return userRepository.findById(id);
         } catch (Exception e) {
-            // Handle exception or log the error
             throw new RuntimeException("Failed to fetch User by ID: " + e.getMessage());
         }
     }
 
+    // DELETE METHODS ==================================================================================================
     public boolean deleteUser(Long id) {
         try {
             userRepository.deleteById(id);
-            return true; // Deletion successful
+            return true;
         } catch (Exception e) {
-            // Handle exception or log the error
             throw new RuntimeException("Failed to delete User: " + e.getMessage());
         }
     }

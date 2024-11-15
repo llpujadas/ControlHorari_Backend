@@ -7,8 +7,5 @@ import lombok.Setter;
 @Setter
 public class LoginResponse {
     private String token;
-
-    private long expiresIn;
-
-    // Getters and setters...
+    private Long expiresIn;
 }

@@ -10,12 +10,8 @@ import java.time.LocalDateTime;
 @Setter
 public class CheckinDto {
     private Long userId;
-
     private CheckinType checkinType;
-
     private String latitud;
-
     private String longitud;
-
     private String deviceInfo;
 }

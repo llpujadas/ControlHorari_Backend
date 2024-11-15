@@ -21,21 +21,20 @@ public class UserController {
         this.userService = userService;
     }
 
-    // Create a new user
+    // CREATE METHODS ==================================================================================================
     @PostMapping("/upsert")
     public ResponseEntity<User> saveUser(@RequestBody User user) {
         User savedUser = userService.saveOrUpdateUser(user);
         return ResponseEntity.ok(savedUser);
     }
 
-    // Get all users
+    // READ METHODS ====================================================================================================
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
-    // Get a user by ID
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         Optional<User> userOptional = userService.getUserByUserId(id);
@@ -43,15 +42,7 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Update a user
-//    @PutMapping(path = "/user/{userId}")
-//    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-//        Optional<User> updateduserOptional = userService.updateUser(id, user);
-//        return updateduserOptional.map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
-
-    //Delte a user
+    // DELETE METHODS ==================================================================================================
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         boolean deletionStatus = userService.deleteUser(id);
