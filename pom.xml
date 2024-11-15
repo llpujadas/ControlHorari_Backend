@@ -8,7 +8,7 @@
 		<relativePath/>
 	</parent>
 	<groupId>com.sicres</groupId>
-	<artifactId>SICRES</artifactId>
+	<artifactId>ControlHorari</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SICRES</name>
 	<description>SICRES Application</description>
